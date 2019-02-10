@@ -1,0 +1,77 @@
+from random import randint
+def poslist(x):
+    if x==1 or x==4 or x==7:
+        return 0
+    if x==2 or x==5 or x==8:
+        return 2
+    else:
+        return 4 
+
+list1 = [["  ","|","  ","|","  "],["  ","|","  ","|","  "],["  ","|","  ","|","  "]]
+list2 = ["------------"]
+errors = []
+print ("Game Starts!!")
+print(' '.join(list1[0])+ "\n" + ' '.join(list2)+ "\n" +' '.join(list1[1])+ "\n" +' '.join(list2)+ "\n" +' '.join(list1[2]))
+for i in range(9):
+    if i%2 == 0:
+        player = int(input("Please enter a position : "))
+        while player in errors or player>10 or player<0:
+            player = int(input("Give a valid number : "))
+        errors.append(player)
+        if player==3 or player==6 or player==9:
+            list1[int(player/3)-1][poslist(player)] = " X "
+            print(' '.join(list1[0])+ "\n" + ' '.join(list2)+ "\n" +' '.join(list1[1])+ "\n" +' '.join(list2)+ "\n" +' '.join(list1[2]))
+        else:
+            list1[int(player/3)][poslist(player)] = " X "
+            print(' '.join(list1[0])+ "\n" + ' '.join(list2)+ "\n" +' '.join(list1[1])+ "\n" +' '.join(list2)+ "\n" +' '.join(list1[2]))
+    else:
+        a = randint(1, 9)
+        while a in errors:
+            a = randint(1, 9)
+        errors.append(a)
+        print ("Computer played!")
+        if a==3 or a==6 or a==9:
+            list1[int(a/3)-1][poslist(a)] = " O "
+            print(' '.join(list1[0])+ "\n" + ' '.join(list2)+ "\n" +' '.join(list1[1])+ "\n" +' '.join(list2)+ "\n" +' '.join(list1[2]))
+        else:
+            list1[int(a/3)][poslist(a)] = " O "
+            print(' '.join(list1[0])+ "\n" + ' '.join(list2)+ "\n" +' '.join(list1[1])+ "\n" +' '.join(list2)+ "\n" +' '.join(list1[2]))
+    if i >= 5:
+        turn = " X "
+        player = "Player"
+        for y in range(2):
+			#check if someone has won with a horizontal combination 
+            if list1[0][0]==turn and list1[1][2]==turn and list1[2][4]==turn:
+                print(player + " wins the Round")
+                k = input("Press enter to end the program")    
+                quit()
+            elif list1[0][4]==turn and list1[1][2]==turn and list1[2][0]==turn:
+                print(player + " wins the Round")
+                k = input("Press enter to end the program")    
+                quit()
+            #check if someone has won with a vertical combination    
+            elif list1[0][0]==turn and list1[1][0]==turn and list1[2][0]==turn:
+                print(player + " wins the Round")
+                k = input("Press enter to end the program")    
+                quit()
+            elif list1[0][2]==turn and list1[1][2]==turn and list1[2][2]==turn:
+                print(player + " wins the Round")
+                k = input("Press enter to end the program")    
+                quit()
+            elif list1[0][4]==turn and list1[1][4]==turn and list1[2][4]==turn:    
+                print(player + " wins the Round")
+                k = input("Press enter to end the program")    
+                quit() 
+			#we check if someone is defeated with a flanking combination	
+            for j in range(3):
+                win = 0            
+                for z in range(0,5,2):
+                    if list1[j][z]==turn: 
+                        win += 1
+                if win == 3:
+                    print(player + " wins the Round")
+                    k = input("Press enter to end the program")    
+                    quit()
+            turn = " O "
+            player = "Computer"    
+k = input("Press enter to end the program")
