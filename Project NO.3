@@ -1,0 +1,13 @@
+oldfile = str(input("Enter the name of the file you want to be changed : \n"))
+#give the name of the txt file and its extension
+f=open(oldfile)
+lines=f.readlines()
+for line in lines:
+	if "#" in line:
+		s = str(line)
+		print (s.split("#")[0])
+		s[:s.index("#")]
+	else:
+		print (line.strip())
+f.close()
+k = input("Press enter to end the program")
