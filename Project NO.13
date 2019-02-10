@@ -1,0 +1,57 @@
+def MaxDistance(table,tar):
+    sums = []
+    sums2 = []
+    nameosums = []
+    nameosums2 = []
+    loop2worked = 0
+    table.sort()
+    found = 0 
+	#check if the target consists of 2 numbers
+    for i in range(len(table)):
+        j = i + 1
+        while j < len(table):
+            if table[i] + table[j] <= tar:
+				#we create two tables to store the result of the sums and one to see where these results come from
+                sums.append(table[i] + table[j])
+                temps =str(table[i]) + " + " + str(table[j])
+                nameosums.append(temps)
+            j += 1
+	#check if the target consists of 3 numbers		
+    if max(sums) < tar:
+        for i in range(len(table)):
+            for j in range(i + 1,len(table)):
+                for k in range(j + 1, len(table)):
+				#we create two tables to store the result of the sums and one to see where these results come from
+                    if table[i] + table[j] + table[k] <= tar:
+                        sums2.append(table[i] + table[j] + table[k])
+                        temps =str(table[i]) + " + " + str(table[j]) + " + " + str(table[k])
+                        nameosums2.append(temps)
+                        loop2worked = 1
+	#depending on the number that is the number we display the corresponding tables				
+    if loop2worked == 1:
+        t1 = len(sums) - 1
+        t2 = len(sums2) - 1
+        if sums[t1] < sums2[t2]:
+            table = t2
+            print (nameosums2[table] + " = " , sums2[table])
+        else:
+            table = len(sums) - 1
+            print (nameosums[table] + " = " , sums[table])
+
+    else:
+        table = len(sums) - 1
+        print (nameosums[table] + " = " , sums[table])
+numbers = []
+print("Give the number 0 to end the list")
+x = int(input("Enter a number to add to list : "))
+numbers.append(x)
+print (numbers)
+while x != 0:
+	x = int(input("Enter a number to add to list : "))
+	if x == 0:
+		continue
+	numbers.append(x)
+	print (numbers)
+target = int(input("Enter a target : "))
+MaxDistance(numbers,target)
+k = input("Press enter to end the program")
