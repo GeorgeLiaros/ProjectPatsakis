@@ -1,0 +1,74 @@
+numbers = []
+print("Give negative numbers to stop adding intervals")
+x = int(input("Enter the first number of the interval :\n"))
+y = int(input("Enter the second number of the interval :\n"))
+if (x >= 0 or y >= 0) or x>y:
+	numbers.append([x,y])
+print (numbers)
+while x >= 0 or y >= 0:
+	x = int(input("Enter the first number of the interval :\n"))
+	if (x < 0 or y < 0):
+		break
+	y = int(input("Enter the second number of the interval :\n"))
+	if (x < 0 or y < 0) or y<=x:
+		break
+	numbers.append([x,y])
+	print (numbers)
+print ("The first list was : ",numbers)
+
+def sumIntervals(list1):
+	i = 0
+	while i < len(list1):
+		samenum = list1[i][0]
+		max = list1[i][1]
+		j = 0
+		while j < len(list1):
+			# spaces with common start are removed from the list
+			if samenum == list1[j][0]:
+				if max < list1[j][1]:
+					list1.remove([samenum,max])
+					j -= 1
+					max = list1[j][1]
+				elif max > list1[j][1]:
+					j -= 1
+					list1.remove([samenum,max])
+					
+			j += 1 
+		i += 1
+	print ("All same number lists are deleted")
+
+		
+	endl = []
+	h = 0 
+	while h < len(list1):
+		flag = 0
+		gnum = list1[h][1]
+		k = h + 1
+		while k < len(list1):
+			if gnum >= list1[k][0]:
+				#smaller intervals are removed from the list
+				if gnum >= list1[k][1]:
+					del list1[k]
+					k -= 1
+				else:
+					gnum = list1[k][1]
+					greatestnum = k
+				k += 1
+				flag = 1
+			else:
+				break
+		if flag == 1:
+			endl.append([list1[h][0],list1[greatestnum][1]])
+			h = greatestnum + 1
+		else:
+			endl.append(list1[h])
+			h += 1		
+
+	#Calculating the differences and sum them up
+	difference = 0
+	for x in range(len(endl)):
+		difference += (endl[x][1]-endl[x][0])
+	print ("The difference between the distances is : ", difference)	
+
+sumIntervals(numbers)
+k = input("Press enter to end the program")
